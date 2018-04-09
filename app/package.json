@@ -1,0 +1,21 @@
+{
+    "name": "HXYC",
+    "version": "1.1.47",
+    "description": "HXYC",
+    "main": "main.js",
+    "icon": "./favicon.ico",
+    "scripts": {
+        "builder32": "electron-packager ./ HXYC --platform=win32 --arch=ia32 --icon=./favicon.ico --electronVersion=1.6.11",
+        "builderMac" : "electron-packager ./ HXYC --platform=darwin --arch=x64 --icon=./favicon.ico --electronVersion=1.6.11"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "captchapng": "^0.0.1",
+        "md5": "^2.2.1",
+        "unzip": "^0.1.11"
+    },
+    "devDependencies": {
+        "request": "^2.81.0"
+    }
+}

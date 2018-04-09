@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+    <link rel="stylesheet" href="../static/css/loaders.css">
+    <style>
+        .bx-controls {
+            display: none;
+        }
+        
+        .right-porson-info {
+            height: 6.4rem;
+            position: relative;
+        }
+        
+        .right-porson-info li {
+            width: 100%;
+            height: 0.8rem;
+            margin: 0;
+            border-bottom: none;
+            position: absolute;
+            top: -0.8rem;
+        }
+        
+        .right-porson-info li h2 time {
+            margin-top: 0.1rem;
+        }
+        
+        .index-content-right-info span.num3 {
+            text-align: center;
+        }
+        
+        .index-content-right-info span.num3.trans {
+            animation: .5s name;
+        }
+        
+        .wang-icon-compass {
+            position: absolute;
+            right: 0;
+            bottom: 0;
+        }
+        
+        @keyframes name {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .box-address {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            width: 150px;
+            background: rgba(255, 255, 255, .3);
+            color: whitesmoke;
+            font-size: 16px;
+            border-radius: 5px;
+            padding: 5px 0px;
+            padding-left: 5px;
+        }
+        
+        #map .wang-radio-box {
+            position: absolute;
+            border-radius: 50%;
+            border: 1px solid transparent;
+            background: transparent;
+            z-index: 3;
+        }
+        
+        .map-wang-areainfo {
+            position: absolute;
+            /*right: 0;*/
+            top: 0;
+            background: #0C1325;
+            /*background: rgba(12,19,37,0.9);*/
+            border-radius: 3px;
+            padding: 5px 10px;
+            box-shadow: 0 0 5px 1px;
+            display: none;
+            z-index: 10;
+        }
+        
+        .map-wang-areainfo p {
+            font-size: 0.22rem;
+            color: #FFF;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header"></div>
+    <div id="clock"></div>
+    <div id="container" class="flex vue-content">
+        <div class="grad1">
+            <div class="grad1-1">
+                <div class="opacityBg"></div>
+                <div class="container-text">
+                    <h2 class="right-title">
+                        地区基本信息
+                    </h2>
+                    <div class="index-left-sum">
+                        <p>
+                            <span class="text2">乡镇<small class="Unit">(个)</small></span>
+                            <span class="text2">行政村<small class="Unit">(个)</small></span>
+                            <span class="text2">贫困村<small class="Unit">(个)</small></span>
+                        </p>
+                        <p>
+                            <span class="num1">{{info.region_info.town}}</span>
+                            <span class="num1">{{info.region_info.admin_vill}}</span>
+                            <span class="num1">{{info.region_info.poor_vill}}</span>
+                        </p>
+                    </div>
+                    <div class="index-left-poor">
+                        <p>
+                            <span class="text2">建档贫困户<small class="Unit">(户/人)</small></span>
+                            <span class="text2">当前贫困户<small class="Unit">(户/人)</small></span>
+                        </p>
+                        <p>
+                            <span class="num1">
+										{{info.region_info.create_family}}
+										<small class="Unit1">/</small>
+										{{info.region_info.create_people}}
+									</span>
+
+                            <span class="num1">
+										{{info.region_info.new_poor_family}}
+										<small class="Unit1">/</small>
+										{{info.region_info.new_poor_people}}
+									</span>
+                        </p>
+                    </div>
+                    <p style="text-align: center;line-height: 0.6rem; padding-right: 10%;" class="text1">
+                        本年度计划
+                    </p>
+                    <div class="index-left-sum">
+                        <p>
+                            <span class="text2">脱贫户数<small class="Unit">(户)</small></span>
+                            <span class="text2">脱贫人口<small class="Unit">(人)</small></span>
+                            <span class="text2">出列贫困村<small class="Unit">(个)</small></span>
+                        </p>
+                        <p>
+                            <span class="num1">{{info.year_plan.family_num}}</span>
+                            <span class="num1">{{info.year_plan.people_num}}</span>
+                            <span class="num1">{{info.year_plan.village_num}}</span>
+                        </p>
+                    </div>
+                    <!--贫困结构比例-->
+                    <div id="tu1" class="eacharts-poor" style="height: 2.5rem;"></div>
+                </div>
+            </div>
+            <div class="grad1-2">
+                <div class="opacityBg"></div>
+                <div class="container-text">
+                    <h2 class="right-title">
+                        政策帮扶信息
+                    </h2>
+                    <div class="index-left-poor index-left-bottom">
+                        <p>
+                            <span class="text2">帮扶总户数<small class="Unit">(户)</small></span>
+                            <span class="text2">帮扶总人口<small class="Unit">(人)</small></span>
+                        </p>
+                        <!-- 1.1.42版本更新 -->
+                        <p>
+                            <span class="num1">{{info.policy_help[11] ? info.policy_help[11].policy_TotalCount : ''}}</span>
+                            <span class="num1">{{info.policy_help[10] ? info.policy_help[10].policy_people : ''}}</span>
+                        </p>
+                    </div>
+                    <!--政策帮扶信息-->
+                    <div id="tu2" class="canvas eacharts-help" style="height: 1.8rem;width: 100%;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="grad2">
+            <div class="grad2-1" id="dragBox">
+                <div id="map-title">
+                    <h1 class="text1" style="font-weight: 100;line-height: 0.5rem;">贫困发生率</h1>
+                    <p style="color: #c70300;">●&nbsp大于10%</p>
+                    <p style="color: #ffff2f;">●&nbsp;3%&nbsp;~&nbsp;10%</p>
+                    <p style="color: #40fffe;">●&nbsp;0%&nbsp;~&nbsp;3%</p>
+                </div>
+                <div id="map" style="text-align: center;">
+                    <a href="javascript:;" @click="reloadData" style="font-size:0.22rem;color:#43ffff;position:absolute;right:0;">刷新</a>
+                    <img id="maps" @load="mapLoaded($event)" :src="mapBg" style="-width:10rem;height:100%;" />
+                </div>
+                <!--地区hover信息-->
+                <div class="map-wang-areainfo">
+                    <p>地区名: 金海湖街道办</p>
+                    <p>贫困发生率: 66%</p>
+                </div>
+                <!--xx数据分析模块-->
+                <div class="wang-ana" id="drag-obj">
+                    <!--标题下拉/回收按钮-->
+                    <div class="wang-clearfix">
+                        <p>数据统计分析</p>
+                        <img @click="avaSlide" v-if="anaStatus" src="../static/images/down.png" />
+                        <img @click="avaSlide" v-else src="../static/images/up.png" />
+                    </div>
+                    <!--数据列表-->
+                    <div class="ana-item-group">
+                        <div class="wang-clearfix" @click="openPoor(1)">
+                            <span class="active">有劳力</span>
+                            <span>(户/人)</span>
+                            <span class="active">{{info.Analysis.familyLabors}}/{{info.Analysis.familyLaborsMembers}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(2)">
+                            <span class="active">已务工</span>
+                            <span>(人)</span>
+                            <span class="active">{{info.Analysis.isWorks}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(3)">
+                            <span class="active">老人户</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.oldManCts}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(4)">
+                            <span class="active">孤寡户</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.singleFamily}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(5)">
+                            <span class="active">残疾户</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.disabilityCounts}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(6)">
+                            <span class="active">无劳力户</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.noLaborsFamily}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(7)">
+                            <span class="active">未成年户</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.isNoFullYear}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(8)">
+                            <span class="active">收入达脱贫指标</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.isOverAvg}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(9)">
+                            <span class="active">返贫户</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.isPovertyCounts}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(11)">
+                            <span class="active">分户致贫</span>
+                            <span>(户)</span>
+                            <span class="active">{{info.Analysis.Household}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                        <div class="wang-clearfix" @click="openPoor(10)">
+                            <span class="active">接受教育人数</span>
+                            <span>(人)</span>
+                            <span class="active">{{info.Analysis.eduCounts}}</span>
+                            <img src="../static/images/help07.png" />
+                        </div>
+                    </div>
+                </div>
+                <img class="wang-icon-compass" src="../static/images/compass.png" />
+            </div>
+            <div class="grad2-2">
+                <div class="table-num">
+                    <div class="item-box">
+                        <!--切换按钮-->
+                        <span title="第一个版面" v-for="(item,index) in info.dynamic_data"></span>
+                    </div>
+                    <div class="banner-box">
+                        <ul class="banner_list">
+                            <li v-for="(item,index) in info.dynamic_data">
+                                <h2 class="right-title">商品销售数量</h2>
+                                <div class="shop-box">
+                                    <div class="shop-data">
+                                        <p>
+                                            <span class="text2">发布商品总计<small class="Unit">(件)</small></span><span class="text2">总计金额<small class="Unit">(元)</small></span>
+                                        </p>
+                                        <p>
+                                            <!--发布商品总计-->
+                                            <span class="num1">{{item.send_goods}}</span>
+                                            <!--发布商品总计-->
+                                            <span class="num1">{{(item.send_total_sales).toFixed(2)}}</span>
+                                        </p>
+                                        <p>
+                                            <span class="text2">成交商品总计<small class="Unit">(件)</small></span><span class="text2">总计金额<small class="Unit">(元)</small></span>
+                                        </p>
+                                        <p>
+                                            <!--成交商品总计-->
+                                            <span class="num1">{{item.goods_sales}}</span>
+                                            <span class="num1">{{(item.total_sales).toFixed(2)}}</span>
+                                        </p>
+                                        <p class="text1">成交订单总计</p>
+                                        <p style="margin-bottom: 0;">
+                                            <span class="text2">企业成交<small class="Unit">(件)</small></span>
+                                            <span class="text2">企业成交金额<small class="Unit">(元)</small></span>
+                                        </p>
+                                        <p>
+                                            <!--企业成交-->
+                                            <span class="num2" style="font-size:0.26rem;">{{item.total_company}}</span>
+                                            <!--普通用户成交-->
+                                            <span class="num2" style="font-size:0.26rem;">{{(item.company_money).toFixed(2)}}</span>
+                                        </p>
+                                    </div>
+                                    <div class="shop-line">
+                                        <div id="lineTable" class="eacharts-goods" :class="'eacharts-goods-' + index"></div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="grad3">
+            <div class="grad3-1">
+                <div class="index-content-right-info" style="overflow: hidden;">
+                    <h2 class="right-title"> 信息动态 </h2>
+                    <ul class="wang-info-banner">
+                        <li class="wang-index-info-scroll">
+                            <p>
+                                <span class="text2">贫困走访</span>
+                                <span class="num3 wang-visit">{{work.information.visit}}</span>
+                                <span class="text2">商品数量</span>
+                                <span class="index-right-num num3 wang-goods">{{work.information.goods}}</span>
+                            </p>
+                            <p>
+                                <span class="text2">工作分享</span>
+                                <span class="num3 wang-shares">{{work.information.shares}}</span>
+                                <span class="text2">成交数量</span>
+                                <span class="index-right-num num3 wang-sales">{{work.information.sales}}</span>
+                            </p>
+                            <p>
+                                <span class="text2">民生项目</span>
+                                <span class="num3 wang-project">{{work.information.project}}</span>
+                            </p>
+                        </li>
+                        <li class="wang-index-info-scroll">
+                            <p>
+                                <span class="text2">发布务工</span>
+                                <span class="num3 wang-works">{{work.information.works}}</span>
+                                <span class="text2">单位资讯</span>
+                                <span class="index-right-num num3 wang-news">{{work.information.news}}</span>
+                            </p>
+                            <p>
+                                <span class="text2">民生信息</span>
+                                <span class="num3 wang-people_news">{{work.information.people_news}}</span>
+                                <span class="text2">民众反馈</span>
+                                <span class="index-right-num num3 wang-exposures">{{work.information.exposures}}</span>
+                            </p>
+                            <p>
+                                <span class="text2">成交金额</span>
+                                <span class="index-right-num num3 wang-sales_money">{{(work.information.sales_money).toFixed(2)}}</span>
+                            </p>
+                        </li>
+                    </ul>
+                </div>
+                <ul class="right-porson-info">
+                    <li class="wang-banner-item" v-for="(item,index) in work.work_flow">
+                        <div class="person-img">
+                            <img :src="src(item.avatar)" />
+                        </div>
+                        <div class="person-intro">
+                            <h2>
+                                <span>{{item.user_name}}</span>
+                                <span>{{item.gov_title}}</span>
+                                <time>{{fromAt(item.crate_time)}}</time>
+                            </h2>
+                            <p>
+                                {{item.action}}了 {{item.to_user_name}} 工作分享
+                            </p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/view/lib/vue.js"></script>
+    <script src="../static/js/view/lib/jquery-1.8.3.min.js"></script>
+    <script src="../static/js/view/lib/echarts.min.js"></script>
+    <script src="../static/js/view/other/ajaxConfig.js"></script>
+</body>
+
+</html>

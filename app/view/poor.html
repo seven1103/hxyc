@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta Author="hhy" />
+    <title>贫困户</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+    <link rel="stylesheet" href="../static/css/company-shopping.css" />
+    <link rel="stylesheet" href="../static/css/poor.css" />
+    <link rel="stylesheet" href="../static/css/archives.css">
+    <link rel="stylesheet" href="../static/css/loaders.css">
+    <style>
+        .wang-enter{
+            line-height: 30px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header"></div>
+    <div id="clock"></div>
+    <div id="container" class="flex vue-content">
+        <div class="grad1">
+            <section class="poor-left">
+                <h2>计划脱贫目标</h2>
+                <section class="poor-left-forget">
+                    <h3 class="forget-h3">脱贫目标设定</h3>
+                    <p class="poor-left-plan">计划脱贫户</p>
+                    <p class="poor-left-num">
+                        {{plan.plan_family}}
+                    </p>
+                    <p class="poor-left-plan">实际脱贫户</p>
+                    <p class="poor-left-num">
+                        {{plan.actual_family}}
+                    </p>
+                    <p class="poor-left-plan">计划脱贫人口</p>
+                    <p class="poor-left-num">
+                        {{plan.plan_people}}
+                    </p>
+                    <p class="poor-left-plan">实际脱贫人口</p>
+                    <p class="poor-left-num">
+                        {{plan.actual_people}}
+                    </p>
+                    <h3 class="forget-h3">脱贫村出列目标设定</h3>
+                    <p class="poor-left-plan">计划出列<small>(个)</small></p>
+                    <p class="poor-left-num">
+                        {{plan.plan_village}}
+                    </p>
+                    <p class="poor-left-plan">实际出列<small>(个)</small></p>
+                    <p class="poor-left-num">
+                        {{plan.actual_village}}
+                    </p>
+                </section>
+            </section>
+        </div>
+        <div class="grad2">
+            <p class="help-title">贫困户信息 <img src="../static/images/help07.png" /></p>
+            <!--条件查询组件-->
+            <wang-search @search="search"></wang-search>
+            <section class="poor-middle-table-box">
+                <table class="poor-middle-table">
+                    <thead>
+                        <tr>
+                            <th>姓名</th>
+                            <th>性别</th>
+                            <th>证件号码</th>
+                            <th>民族</th>
+                            <th>文化程度</th>
+                            <th>人数</th>
+                            <th>贫困户属性</th>
+                            <th>结对帮扶干部</th>
+                            <th>脱贫状态</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="poor-table">
+                        <tr v-for="(item,index) in lists" @click="showDetail($event,item._id)">
+                            <td>
+                                {{item.name }}
+                            </td>
+                            <td>
+                                {{item.sex }}
+                            </td>
+                            <td>
+                                {{item.id_card | R(6,4) }}
+                            </td>
+                            <td>
+                                {{item.nation }}
+                            </td>
+                            <td>
+                                {{item.edu }}
+                            </td>
+                            <td>
+                                {{item.number }}
+                            </td>
+                            <td>
+                                {{item.property }}
+                            </td>
+                            <td>
+                                {{item.help_name }}
+                            </td>
+                            <td>
+                                {{item.status }}
+                            </td>
+                            <td>
+                                <span class="from-info">查看</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <p class="page-box" v-show="lists.length"></p>
+        </div>
+        <div class="grad3">
+            <div class="wang-memberInfo wang-poor-reset help-left box-right">
+                <div class="wang-memberDetail poor">
+                    <h3 class="num1">贫困户基本情况</h3>
+                    <div class="wang-poor-thumbnail">
+                        <div class="wang-thumbnail-img">
+                            <img class="user-img" :src="src(detail.family.avatar)" />
+                        </div>
+                        <div class="wang-thumbnail-text">
+                            <p class="text2 noFloat ">户主姓名:<span class="user-name">{{detail.family.name}}</span></p>
+                            <p class="text2 noFloat">家庭住址:</p>
+                            <p class="text2 noFloat  user-addess">{{detail.family.address}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wang-memberDetail poor">
+                    <h3 class="num1">家庭成员</h3>
+                    <table class="wang-user-info">
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>证件号码</th>
+                                <th>与户主关系</th>
+                            </tr>
+                        </thead>
+                        <tbody class="user-lsit">
+                            <tr v-for="(item,index) in detail.members_list">
+                                <td>{{item.name | R(1,0,2)}}</td>
+                                <td>{{item.sex}}</td>
+                                <td>{{item.id_card | R(6,4)}}</td>
+                                <td>{{item.relation}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="text2 noFloat">联系电话:<span class="user-phone">{{detail.family.phone | R(3,3)}}</span> </p>
+                    <p class="text2 noFloat">银行卡号:<span class="user-card">{{detail.family.bank_card.card_id | R(4,4)}}</span> </p>
+                    <p class="text2">开户姓名:<span class="card-user">{{detail.family.bank_card.name}}</span> </p>
+                    <p class="text2">开户银行:<span class="card-status">{{detail.family.bank_card.bank}}</span> </p>
+                    <p class="text2">贫困户属性:<span class="user-property">{{detail.family.property}}</span> </p>
+                    <p class="text2">识别标准:<span class="user-standard">{{detail.family.standard}}</span> </p>
+                    <p class="text2">六个一批:<span class="user-solution">{{detail.family.solution_int}}</span> </p>
+                    <p class="text2">是否军烈:<span class="user-martyr_sib">{{detail.family.martyr_sib}}</span></p>
+                    <p class="text2">是否脱贫:<span class="user-status">{{detail.family.status}}</span> </p>
+                    <p class="text2 wang-enter" style="width:100%">主要致贫原因: <span class="user-poor">{{detail.family.cause}}</span></p>
+                </div>
+
+                <div class="wang-memberDetail poor">
+                    <h3 class="num1">收入、卫生信息、上年度收入信息</h3>
+                    <p class="text2">工资性收入:<span class="earning-salary">{{detail.family.earning.salary}}</span> </p>
+                    <p class="text2">生产经营性收入:<span class="earning-produces">{{detail.family.earning.produces}}</span> </p>
+                    <p class="text2">财政性收入:<span class="earning-finance">{{detail.family.earning.finance}}</span> </p>
+                    <p class="text2">转移收入:<span class="earning-metastatic">{{detail.family.earning.metastatic}}</span> </p>
+                    <p class="text2">计划生育金:<span class="earning-procreate">{{detail.family.earning.procreate}}</span> </p>
+                    <p class="text2">低保金:<span class="earning-low_guarantee">{{detail.family.earning.low_guarantee}}</span> </p>
+                    <p class="text2">五保金:<span class="earning-five_guarantees">{{detail.family.earning.five_guarantees}}</span> </p>
+                    <p class="text2">养老保险金:<span class="earning-pension">{{detail.family.earning.pension}}</span> </p>
+                    <p class="text2">生态补偿金:<span class="earning-ecology">{{detail.family.earning.ecology}}</span></p>
+                    <p class="text2">其他转移性收入:<span class="earning-other_meta">{{detail.family.earning.other_meta}}</span></p>
+                    <p class="text2">年收入: <span class="earning-year_income">{{detail.family.earning.year_income}}</span></p>
+                    <p class="text2">生产性支出:<span class="earning-produces_outcome">{{detail.family.earning.produces_outcome}}</span> </p>
+                    <p class="text2">纯收入:<span class="earning-pure_income">{{detail.family.earning.pure_income}}</span> </p>
+                    <p class="text2">人均收入:<span class="earning-avg_income">{{detail.family.earning.avg_income}}</span> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/view/lib/vue.js"></script>
+    <script src="../static/js/view/lib/jquery-1.8.3.min.js"></script>
+    <script src="../static/js/view/other/ajaxConfig.js"></script>
+</body>
+
+</html>

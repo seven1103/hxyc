@@ -1,0 +1,125 @@
+body {
+    background-image: url('../../static/images/backgroud.jpg');
+    background-size: cover;
+}
+
+.login-box {
+    width: 5.66rem;
+    height: 3.6rem;
+    position: relative;
+    background: #0c1325;
+    margin: auto;
+    margin-top: 0.6rem;
+}
+
+.header {
+    height: 2.2rem !important;
+    line-height: 2.2rem !important;
+}
+
+.box-top {
+    width: 2.85rem;
+    height: 0.22rem;
+    background: #0c1325;
+    position: absolute;
+    left: 50%;
+    top: -0.22rem;
+    margin-left: -1.425rem;
+}
+
+.box-top::before {
+    position: absolute;
+    content: "";
+    border: 0.11rem solid #0c0f1e;
+    border-color: #0c0f1e transparent transparent #0c0f1e;
+    left: 0;
+    top: 0;
+}
+
+.box-top::after {
+    position: absolute;
+    content: "";
+    border: 0.11rem solid #0c0f1e;
+    border-color: #0c0f1e #0c0f1e transparent transparent;
+    right: 0;
+    top: 0;
+}
+
+.login-box>h2 {
+    color: #18B2FB;
+    font-size: 0.22rem;
+    text-align: center;
+    font-size: 100;
+}
+
+.login-box>p {
+    width: 3.5rem;
+    height: 0.45rem;
+    margin: auto;
+    margin-top: 0.25rem;
+}
+
+.login-box>p:first-of-type {
+    margin-top: 0.5rem;
+}
+
+.login-box>p>input {
+    float: left;
+    border-radius: 0.225rem;
+    background: #0e1d32;
+    border: none;
+    outline: none;
+    font-size: 0.16rem;
+    padding-left: 0.25rem;
+    box-sizing: border-box;
+    color: #C9C9C9;
+}
+
+.user-name>input,
+.user-pwd>input {
+    width: 100%;
+    height: 100%;
+}
+
+.user-name>input::-webkit-input-placeholder,
+.user-pwd>input::-webkit-input-placeholder {
+    color: #C9C9C9;
+}
+
+.user-yan>input {
+    width: 2.1rem;
+    height: 0.45rem;
+}
+
+.user-yan>span {
+    display: inline-block;
+    float: left;
+    width: 0.8rem;
+    height: 0.4rem;
+    margin-left: 0.3rem;
+    vertical-align: middle;
+    background: #FFFFFF;
+    padding: 0 0.05rem;
+}
+
+.user-yan>span>img {
+    width: 100%;
+    height: 100%;
+    float: left;
+    cursor: pointer;
+}
+
+.user-login>span {
+    float: left;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 0.225rem;
+    background: #0e1d32;
+    font-size: 0.16rem;
+    color: #C9C9C9;
+    text-align: center;
+    letter-spacing: 0.1rem;
+    line-height: 0.45rem;
+    cursor: pointer;
+}

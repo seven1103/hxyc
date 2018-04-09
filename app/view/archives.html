@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta Author="hhy" />
+    <title>帮扶档案</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+    <link rel="stylesheet" href="../static/css/company-shopping.css" />
+    <link rel="stylesheet" href="../static/css/poor.css" />
+    <link rel="stylesheet" href="../static/css/archives.css">
+    <link rel="stylesheet" href="../static/css/loaders.css">
+</head>
+
+<body>
+    <div class="header"></div>
+    <div id="clock"></div>
+    <div id="container" class="flex vue-content">
+        <div class="grad1">
+            <section class="poor-left">
+                <h2>帮扶档案统计</h2>
+                <p class="poor-left-title">
+                    <span>建档贫困户<small>(户)</small></span>
+                    <span>当前贫困户<small>(户)</small></span>
+                    <span>政策帮扶户<small>(户)</small></span>
+                </p>
+                <p class="poor-left-sum">
+                    <span>{{policy.create_family}}</span>
+                    <span>{{policy.new_family}}</span>
+                    <span>{{policy.policy_family}}</span>
+                </p>
+                <ul class="poor-left-list help-left" style="height:7.5rem">
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>医疗保障措施<small>(户)</small></span>
+                            <span>医疗保障措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.hea_family}}</span>
+                            <span>{{policy.hea_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>生态补偿措施<small>(户)</small></span>
+                            <span>生态补偿措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.com_family}}</span>
+                            <span>{{policy.com_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>发展教育措施<small>(户)</small></span>
+                            <span>发展教育措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.edu_family}}</span>
+                            <span>{{policy.edu_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>产业帮扶措施<small>(户)</small></span>
+                            <span>产业帮扶措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.pro_family}}</span>
+                            <span>{{policy.pro_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>民政兜底措施<small>(户)</small></span>
+                            <span>民政兜底措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.gua_family}}</span>
+                            <span>{{policy.gua_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>易地扶贫搬迁<small>(户)</small></span>
+                            <span>易地扶贫搬迁<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.rel_family}}</span>
+                            <span>{{policy.rel_people}}</span>
+                        </p>
+                    </li>
+                    <!--2017/10/26更新帮扶档案统计-->
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>就业扶持措施<small>(户)</small></span>
+                            <span>就业扶持措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.worked_family}}</span>
+                            <span>{{policy.worked_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>财政金融扶贫措施<small>(户)</small></span>
+                            <span>财政金融扶贫措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.finance_family}}</span>
+                            <span>{{policy.finance_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>危房改造措施<small>(户)</small></span>
+                            <span>危房改造措施<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.danger_house_family}}</span>
+                            <span>{{policy.danger_house_people}}</span>
+                        </p>
+                    </li>
+                    <li>
+                        <p class="poor-left-title poor-left-list-p">
+                            <span>村基础设施建设<small>(户)</small></span>
+                            <span>村基础设施建设<small>(人)</small></span>
+                        </p>
+                        <p class="poor-left-sum poor-left-list-p">
+                            <span>{{policy.village_base_family}}</span>
+                            <span>{{policy.village_base_people}}</span>
+                        </p>
+                    </li>
+                </ul>
+            </section>
+        </div>
+        <div class="grad2">
+            <p class="help-title">帮扶档案统计 <img src="../static/images/help07.png" /></p>
+            <!--条件查询组件-->
+            <wang-search @search="search"></wang-search>
+            <!--数据列表-->
+            <ul class="company-middle-list poor-middle-list wang-active-box">
+                <li v-for="(item,inedx) in list.list" @click="showDetail($event,item._id)">
+                    <div class="middle-img">
+                        <div>
+                            <img :src="src(item.avatar)" />
+                        </div>
+                    </div>
+                    <div class="middle-info poor-middle-list-div">
+                        <p>户主姓名：<span>{{item.name}}</span></p>
+                        <p>帮扶干部：<span>{{item.help_name}}</span></p>
+                        <p>享受政策：<span>{{item.solution}}</span></p>
+                    </div>
+                </li>
+            </ul>
+            <!--分页按钮-->
+            <p class="page-box" v-show="list.list.length"></p>
+        </div>
+        <div class="grad3">
+            <!--详情-->
+            <div class="wang-memberInfo help-left box-right">
+                <div class="wang-memberDetail poor">
+                    <h3 class="num1">家庭信息</h3>
+                    <p class="text2">家庭住址: <span class="archives-address">{{detail.family.address}}</span></p>
+                    <p class="text2">是否军烈: <span class="soldier">{{detail.family.martyr_sib}}</span></p>
+                    <p class="text2">联系电话:<span class="phone">{{detail.family.phone | R(3,3)}}</span></p>
+                    <p class="text2 wang-enter">主要致贫原因: <span class="poor-why">{{detail.family.cause}}</span></p>
+                    <p class="text2">银行卡号:<span class="back-card">{{detail.family.bank_card.card_id | R(4,4)}}</span></p>
+                    <p class="text2">脱贫状态:<span class="poor-stand">{{detail.family.status}}</span> </p>
+                    <p class="text2">识别标准: <span class="standard">{{detail.family.standard}}</span></p>
+                    <p class="text2">贫困属性:<span class="poor-propertys">{{detail.family.property}}</span> </p>
+                </div>
+                <div class="wang-memberDetail poor">
+                    <h3 class="num1">家庭成员</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>性别</th>
+                                <th>证件号码</th>
+                                <th>与户主关系</th>
+                            </tr>
+                        </thead>
+                        <tbody class="family-member">
+                            <tr v-for="(item,index) in detail.members_list">
+                                <td>{{item.name | R(1,0,2)}}</td>
+                                <td>{{item.sex}}</td>
+                                <td>{{item.id_card | R(6,4)}}</td>
+                                <td>{{item.relation}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--产业帮扶措施-->
+                <div class="wang-memberDetail archives-right-toggle section-production  poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.production && detail.solutions.production.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.production && detail.solutions.production.joined" src="../static/images/up.png" @click="up($event)" /> 产业帮扶措施
+                        <span class="production-joined">{{detail.solutions.production?(detail.solutions.production.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.production && detail.solutions.production.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.production.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.production.images.length">印证资料</h4>
+                        </div> -->
+                        <p class="text2">加入时间: <time class="production-timed">{{formAt(detail.solutions.production.timed)}}</time></p>
+                        <p class="text2">产业类别:<span class="production-industry">{{detail.solutions.production.industry}}</span></p>
+                        <p class="text2">资金来源:<span class="production-year_value"> {{detail.solutions.production.money_source}}</span></p>
+                        <p class="text2">合作企业:<span class="production-year_value"> {{detail.solutions.production.cooperation}}</span></p>
+                        <p class="text2">品种名称:<span class="production-year_value"> {{detail.solutions.production.varieties_name}}</span></p>
+                        <p class="text2">到户金额:<span class="production-year_value"> {{detail.solutions.production.reach_money}}</span></p>
+                        <p class="text2">到户规模:<span class="production-year_value"> {{detail.solutions.production.scale}}</span></p>
+                        <p class="text2">实现年收益:<span class="production-year_income"> {{detail.solutions.production.year_income}}</span></p>
+                        <!--<p class="text2">实现年产值:<span class="production-year_value"> {{detail.solutions.production.year_value}}</span></p>-->
+                    </section>
+                </div>
+                <!--易地扶贫搬迁a123123123-->
+                <div class="wang-memberDetail section-relocate archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.relocate && detail.solutions.relocate.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.relocate && detail.solutions.relocate.joined" src="../static/images/up.png" @click="up($event)" /> 易地扶贫搬迁
+                        <span class="relocate-joined">{{detail.solutions.relocate?(detail.solutions.relocate.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.relocate && detail.solutions.relocate.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.relocate.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.relocate.images.length">印证资料</h4>
+                        </div> -->
+                        <p class="text2">搬迁时间: <span class="relocate-timed">{{detail.solutions.relocate.timed?formAt(detail.solutions.relocate.timed):'无'}}</span></p>
+                        <p class="text2">搬迁方式:<span class="relocate-address">{{detail.solutions.relocate.relocate_way}}</span> </p>
+                        <p class="text2">迁出地址:<span class="relocate-address">{{detail.solutions.relocate.relocate_emigration_address}}</span> </p>
+                        <p class="text2">迁入地址:<span class="relocate-address">{{detail.solutions.relocate.relocate_address}}</span> </p>
+                        <p class="text2">安置小区:<span class="relocate-address">{{detail.solutions.relocate.QuarterName}}</span> </p>
+                        <p class="text2">门牌地址:<span class="relocate-address">{{detail.solutions.relocate.address}}</span> </p>
+                        <p class="text2">搬迁后可能存在的困难:<span class="relocate-difficulty">{{detail.solutions.relocate.difficulty}}</span> </p>
+                        <!--<p class="text2">是否列入当年规划:<span class="relocate-planning">{{detail.solutions.relocate.planning?'是':'否'}}</span></p>-->
+                    </section>
+                </div>
+                <!--生态补偿措施-->
+                <div class="wang-memberDetail section-compensate archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.compensate && detail.solutions.compensate.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.compensate && detail.solutions.compensate.joined" src="../static/images/up.png" @click="up($event)" /> 生态补偿措施
+                        <span class="compensate-joined">{{detail.solutions.compensate?(detail.solutions.compensate.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.compensate && detail.solutions.compensate.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.compensate.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.compensate.images.length">印证资料</h4>
+                        </div> -->
+                        <p class="text2"> 加入时间:<span class="compensate-timed">{{formAt(detail.solutions.compensate.timed)}}</span> </p>
+                        <p class="text2">是否护林员:<span class="compensate-forest_ranger">{{detail.solutions.compensate.forest_ranger?'是':'否'}}</span> </p>
+                        <p class="text2">退耕还林:<span class="compensate-reuse">{{detail.solutions.compensate.reuse}}</span> </p>
+                        <p class="text2">年度工资:<span class="compensate-year_income"> {{detail.solutions.compensate.year_income}}</span></p>
+                    </section>
+                </div>
+                <!--发展教育措施-->
+                <div class="wang-memberDetail section-education  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.education && detail.solutions.education.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.education && detail.solutions.education.joined" src="../static/images/up.png" @click="up($event)" /> 发展教育措施
+                        <span class="education-joined">{{detail.solutions.education?(detail.solutions.education.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.education && detail.solutions.education.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.education.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.education.images.length">印证资料</h4>
+                        </div> -->
+                        <p class="text2">加入时间:<span class="education-timed">{{formAt(detail.solutions.education.timed)}}</span> </p>
+                        <p class="text2">资助成员:<span class="education-student">{{detail.solutions.education.student}}</span> </p>
+                        <p class="text2">就读地区:<span class="education-school">{{detail.solutions.education.edu_region == 1? "省内":"省外"}}</span> </p>
+                        <p class="text2">就读学校:<span class="education-school">{{detail.solutions.education.school}}</span> </p>
+                        <p class="text2">就读年级:<span class="education-subsidy"> {{detail.solutions.education.grade}}</span> </p>
+                        <p class="text2">资助金额（元）:<span class="education-subsidy"> {{detail.solutions.education.subsidy}}</span> </p>
+                    </section>
+                </div>
+                <!--民政兜底扶持措施-->
+                <div class="wang-memberDetail section-health  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.guarantee && detail.solutions.guarantee.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.guarantee && detail.solutions.guarantee.joined" src="../static/images/up.png" @click="up($event)" /> 民政兜底扶持措施
+                        <span class="health-joined">{{detail.solutions.guarantee?(detail.solutions.guarantee.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.guarantee && detail.solutions.guarantee.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.guarantee.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.guarantee.images.length">印证资料</h4> 
+                        </div> -->
+                        <p class="text2">社会保障类别:<span class="health-object">{{detail.solutions.guarantee.types}}</span> </p>
+                        <p class="text2">加入时间:<span class="health-timed">{{formAt(detail.solutions.guarantee.timed)}}</span></p>
+                        <p class="text2">保障形式:<span class="health-type">{{detail.solutions.guarantee.mode}}</span> </p>
+                        <p class="text2">保障人口:<span class="health-amount">{{detail.solutions.guarantee.count}}</span> </p>
+                        <p class="text2">保障救济金:<span class="health-amount">{{detail.solutions.guarantee.money}} 元</span> </p>
+                    </section>
+                </div>
+                <!--社会保障-->
+                <!--<div class="wang-memberDetail section-guarantee  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.guarantee && detail.solutions.guarantee.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.guarantee && detail.solutions.guarantee.joined" src="../static/images/up.png" @click="up($event)" /> 社会保障
+                        <span class="guarantee-joined">{{detail.solutions.guarantee?(detail.solutions.guarantee.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.guarantee && detail.solutions.guarantee.joined">
+                        <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.guarantee.images" class="production-images" :src="src(item)" />
+                             <h4 v-if="detail.solutions.guarantee.images.length">印证资料</h4> 
+                        </div>
+                        <p class="text2"> 加入时间:<span class="guarantee-timed">{{formAt(detail.solutions.guarantee.timed)}}</span> </p>
+                        <p class="text2">加入的社会保障类别:<span class="guarantee-type">{{detail.solutions.guarantee.type}}</span></p>
+                        <p class="text2">保障形式:<span class="guarantee-type">{{detail.solutions.guarantee.mode}}</span></p>
+                        <p class="text2"> 保障人口:<span class="guarantee-type">{{detail.solutions.guarantee.count}}</span></p>
+                        <p class="text2">保障救济金:<span class="guarantee-type">{{detail.solutions.guarantee.money}}</span></p>
+                    </section>
+                </div>-->
+                <!--医疗保障措施-->
+                <div class="wang-memberDetail section-health  archives-right-toggle poor">
+                     <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.health && detail.solutions.health.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.health && detail.solutions.health.joined" src="../static/images/up.png" @click="up($event)" /> 医疗保障措施
+                        <span class="health-joined">{{detail.solutions.health?(detail.solutions.health.joined?'是':'否'):'否'}}</span>
+                    </h3> 
+                    <section class="right-info-toggle" v-if="detail.solutions.health && detail.solutions.health.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.health.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.health.images.length">印证资料</h4> 
+                        </div> -->
+                        <p class="text2">保障成员:<span class="health-object">{{detail.solutions.health.peoples}}</span> </p>
+                        <p class="text2">人员状态:<span class="health-amount">{{detail.solutions.health.status}}</span> </p>
+                        <p class="text2">保障形式:<span class="health-amount">{{detail.solutions.health.types}}</span> </p>
+                        <p class="text2">保障说明:<span class="health-amount">{{detail.solutions.health.detail}}</span> </p>
+<!--                        
+                        <p class="text2">救助方式:<span class="health-type">{{detail.solutions.health.types}}</span> </p>
+                        <p class="text2">救助金额:<span class="health-amount">{{detail.solutions.health.amount}}</span> </p>
+                        <p class="text2"> 加入时间:<span class="health-timed">{{formAt(detail.solutions.health.timed)}}</span></p>-->
+                        
+                    </section>
+                </div>
+                
+                <!--就业扶持措施-->
+                <div class="wang-memberDetail section-health  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.worked && detail.solutions.worked.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.worked && detail.solutions.worked.joined" src="../static/images/up.png" @click="up($event)" /> 就业扶持措施
+                        <span class="health-joined">{{detail.solutions.worked?(detail.solutions.worked.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.worked && detail.solutions.worked.joined">
+                        <div style="border-bottom:2px solid black;" v-for="__item in detail.solutions.worked.members">
+                            <p class="text2">就业成员:<span class="health-object">{{__item.name}}</span> </p>
+                            <p class="text2">培训情况:<span class="health-timed">{{__item.is_edu == 'true' ? '已培训' : '未培训'}}</span></p>
+                            <p class="text2">就业地区:<span class="health-type">{{__item.work_region}}</span> </p>
+                            <p class="text2">就业单位:<span class="health-amount">{{__item.ent_name}}</span> </p>
+                            <p class="text2">工资待遇:<span class="health-amount">{{__item.salary}} 元</span> </p>
+                        </div>
+                    </section>
+                </div>
+                <!--财政金融扶贫措施-->
+                <div class="wang-memberDetail section-health  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.finance && detail.solutions.finance.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.finance && detail.solutions.finance.joined" src="../static/images/up.png" @click="up($event)" /> 财政金融扶贫措施
+                        <span class="health-joined">{{detail.solutions.finance?(detail.solutions.finance.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.finance && detail.solutions.finance.joined">
+                        <div  style="border-bottom:2px solid black;" v-for="hu_item in detail.solutions.finance.members">
+                            <p class="text2">特惠贷成员:<span class="health-object">{{hu_item.name}}</span> </p>
+                            <p class="text2">贷款日期始:<span class="health-timed">{{formAt(hu_item.begin_time)}}</span></p>
+                            <p class="text2">贷款日期终:<span class="health-type">{{formAt(hu_item.end_time)}}</span> </p>
+                            <p class="text2">贷款金额:<span class="health-amount">{{hu_item.loan_money}}</span> </p>
+                            <p class="text2">贷款利率:<span class="health-amount">{{hu_item.interest}}%</span> </p>
+                            <p class="text2">贷款用途:<span class="health-amount">{{hu_item.purpose}}</span> </p>
+                        </div>
+                    </section>
+                </div>
+                <!--危房改造-->
+                <div class="wang-memberDetail section-health  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.danger_house && detail.solutions.danger_house.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.danger_house && detail.solutions.danger_house.joined" src="../static/images/up.png" @click="up($event)" /> 危房改造
+                        <span class="health-joined">{{detail.solutions.danger_house?(detail.solutions.danger_house.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.danger_house && detail.solutions.danger_house.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.danger_house.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.danger_house.images.length">印证资料</h4> 
+                        </div> -->
+                        <p class="text2">批准日期:<span class="health-object">{{formAt(detail.solutions.danger_house.begin_time)}}</span> </p>
+                        <p class="text2">竣工日期:<span class="health-timed">{{formAt(detail.solutions.danger_house.end_time)}}</span></p>
+                        <p class="text2">旧住房建造面积:<span class="health-type">{{detail.solutions.danger_house.used_acreage}}</span> </p>
+                        <p class="text2">改造后房屋面积:<span class="health-amount">{{detail.solutions.danger_house.new_acreage}}</span> </p>
+                        <p class="text2">补助类型:<span class="health-amount">{{detail.solutions.danger_house.type == 1?'中央补助':''}}</span> </p>
+                        <p class="text2">改造总投资:<span class="health-amount">{{detail.solutions.danger_house.total_money}} 元</span> </p>
+                        <p class="text2">政府补助金额:<span class="health-amount">{{detail.solutions.danger_house.gov_money}} 元</span> </p>
+                        <p class="text2">对口援疆补助资金:<span class="health-amount">{{detail.solutions.danger_house.other_money}} 元</span> </p>
+                        <p class="text2">农户危房改造贷款:<span class="health-amount">{{detail.solutions.danger_house.finance_money}} 元</span> </p>
+                        <p class="text2">自筹资金:<span class="health-amount">{{detail.solutions.danger_house.self_money}} 元</span> </p>
+                    </section>
+                </div>
+                <!--村基础设施-->
+                <div class="wang-memberDetail section-health  archives-right-toggle poor">
+                    <h3 class="num1">
+                        <img class="img-down" v-if="detail.solutions.village_base && detail.solutions.village_base.joined" src="../static/images/down.png" @click="down($event)" />
+                        <img class="img-up" v-if="detail.solutions.village_base && detail.solutions.village_base.joined" src="../static/images/up.png" @click="up($event)" /> 村基础设施
+                        <span class="health-joined">{{detail.solutions.village_base?(detail.solutions.village_base.joined?'是':'否'):'否'}}</span>
+                    </h3>
+                    <section class="right-info-toggle" v-if="detail.solutions.village_base && detail.solutions.village_base.joined">
+                        <!-- <div class="wang-file-group">
+                            <img v-for="(item,index) in detail.solutions.village_base.images" class="production-images" :src="src(item)" />
+                            <h4 v-if="detail.solutions.village_base.images.length">印证资料</h4> 
+                        </div> -->
+                        <p class="text2">共享受补助金额:<span class="health-object">{{detail.solutions.village_base.share_money}} 元</span> </p>
+                        <p class="text2">改厕所补助等级:<span class="health-timed">{{detail.solutions.village_base.toilet_level}}</span></p>
+                        <p class="text2">改厕补助金额:<span class="health-type">{{detail.solutions.village_base.toilet_money}} 元</span> </p>
+                        <p class="text2">厨房补助等级:<span class="health-amount">{{detail.solutions.village_base.kitchen_level}}</span> </p>
+                        <p class="text2">厨房补助金额:<span class="health-amount">{{detail.solutions.village_base.kitchen_money}} 元</span> </p>
+                        <p class="text2">圈补助等级:<span class="health-amount">{{detail.solutions.village_base.pigsty_level}}</span> </p>
+                        <p class="text2">圈补住金额:<span class="health-amount">{{detail.solutions.village_base.pigsty_money}} 元</span> </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/view/lib/vue.js"></script>
+    <script src="../static/js/view/lib/jquery-1.8.3.min.js"></script>
+    <script src="../static/js/view/other/ajaxConfig.js"></script>
+</body>
+
+</html>

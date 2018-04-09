@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta Author="hhy" />
+    <title>查询乡镇数据</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/data-search.css" />
+    <link rel="stylesheet" href="../static/css/loaders.css">
+    <style type="text/css">
+        .wang-search-btn {
+            cursor: pointer;
+        }
+        
+        .wang-active-color {
+            color: #41ffff !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header"></div>
+    <div id="clock"></div>
+    <div id="container" class="flex vue-content">
+        <div class="grad1">
+            <div class="search-left">
+                <div class="search-left-title">
+                    <div>
+                        <input v-model="search_keyword" class="seach-text wang-search-input" type="text" placeholder="请输入要搜索的村名称">
+                        <img @click="search" class="wang-search-btn" src="../static/images/help06.png" />
+                    </div>
+                </div>
+                <p class="wang-tisp-search" v-if="!town.town_list.length">未查询到数据</p>
+                <ul class="left-address-list">
+                    <li class="left-address-list-wang-li" v-for="(item,index) in town.town_list">
+                        <span @click="down($event)" class="down-img"><img src="../static/images/down.png"/></span>
+                        <span @click="down($event)" class="up-img"><img src="../static/images/up.png"/></span>
+                        <a :class="{'wang-active-color':!index}" href="javascript:;" @click="showDetail($event,item._id)">{{item.town_name}}</a>
+                        <ul class="left-children">
+                            <li v-for="(_item,_index) in item.vill_list" @click="showDetail($event,_item.v_id)" class="left-address-list-wang-li-child">{{_item.v_name}}</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="grad2">
+            <div class="address-info">
+                <h2 class="right-title"> 地区基本信息 </h2>
+                <p>
+                    <span>建档贫困户<small class="Unit" style="vertical-align:baseline">(户)</small></span>
+                    <span>当前贫困户<small class="Unit" style="vertical-align:baseline">(户)</small></span>
+                    <span>建档贫困人口<small class="Unit" style="vertical-align:baseline">(人)</small></span>
+                    <span>当前贫困人口<small class="Unit" style="vertical-align:baseline">(人)</small></span>
+                </p>
+                <p>
+                    <span class="create_family">{{info.region_base.create_family}}</span>
+                    <span class="new_poor_family">{{info.region_base.new_poor_family}}</span>
+                    <span class="create_people">{{info.region_base.create_people}}</span>
+                    <span class="new_poor_people">{{info.region_base.new_poor_people}}</span>
+                </p>
+                <div class="canvas-box">
+                    <!--searchScale 贫困结构比例-->
+                    <div id="searchScale" style="-margin-left:-15px;width:40%"></div>
+                    <!--原因-->
+                    <div id="searchWhy" style="-margin-left:-35px;width:60%"></div>
+                </div>
+            </div>
+            <div class="shop-count" style="height: 3.7rem;">
+                <h2 class="right-title"> 商品销售数据 </h2>
+                <div>成交订单总计</div>
+                <p>
+                    <span>发布商品总计<small class="Unit" style="vertical-align:baseline">(件)</small></span>
+                    <span>总计金额<small class="Unit" style="vertical-align:baseline">(元)</small></span>
+                    <span>企业成交<small class="Unit" style="vertical-align:baseline">(件)</small></span>
+                    <span>企业成交<small class="Unit" style="vertical-align:baseline">(元)</small></span>
+                </p>
+                <p>
+                    <span class="send_goods">{{info.dynamic.send_goods}}</span>
+                    <span class="send_total_sales">{{info.dynamic.send_total_sales}}</span>
+                    <span class="total_goods_company">{{info.dynamic.total_goods_company}}</span>
+                    <span class="total_company">{{info.dynamic.total_company}}</span>
+                </p>
+                <p>
+                    <span>成交商品总计<small class="Unit" style="vertical-align:baseline">(件)</small></span>
+                    <span>成交金额<small class="Unit" style="vertical-align:baseline">(元)</small></span>
+                    <span>普通用户成交<small class="Unit" style="vertical-align:baseline">(件)</small></span>
+                    <span>普通用户成交<small class="Unit" style="vertical-align:baseline">(元)</small></span>
+                </p>
+                <p>
+                    <span class="goods_sales">{{info.dynamic.goods_sales}}</span>
+                    <span class="total_sales">{{info.dynamic.total_sales}}</span>
+                    <span class="total_goods_user">{{info.dynamic.total_goods_user}}</span>
+                    <span class="total_user">{{info.dynamic.total_user}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="grad3">
+            <div class="index-content-right-info search-left">
+                <h2 class="right-title">信息动态</h2>
+                <p>
+                    <span class="text2">贫困走访</span>
+                    <span class="num3 visit">{{info.region_base.visit}}</span>
+                    <span class="text2">商品数量</span>
+                    <span class="index-right-num num3 goods">{{info.region_base.goods}}</span>
+                </p>
+                <p>
+                    <span class="text2">工作分享</span>
+                    <span class="num3 shares">{{info.region_base.shares}}</span>
+                    <span class="text2">成交数量</span>
+                    <span class="index-right-num num3 sales">{{info.region_base.sales}}</span>
+                </p>
+                <p class="search-bottom">
+                    <span class="text2">成交金额</span>
+                    <span class="index-right-num num3 sales_money" style="text-align:left;">{{info.region_base.sales_money}}</span>
+                </p>
+            </div>
+            <div class="serch-file" style="height: 6.8rem;">
+                <h2 class="right-title">
+                    政策帮扶档案
+                </h2>
+                <p>
+                    <span>帮扶总户数<small class="Unit" style="vertical-align:baseline">(户)</small></span>
+                    <span>帮扶总人口<small class="Unit" style="vertical-align:baseline">(人)</small></span>
+                </p>
+                <p>
+                    <span class="policy_family">{{info.region_base.policy_family}}</span>
+                    <span class="policy_people">{{info.region_base.policy_people}}</span>
+                </p>
+                <p class="echart-title">政策帮扶档案占图比例</p>
+                <!--政策帮扶档案占图比例-->
+                <div id="searchHelp" class="canvas" style="float: left;"></div>
+            </div>
+        </div>
+    </div>
+    <script src="../static/js/view/lib/vue.js"></script>
+    <script src="../static/js/view/lib/echarts.min.js"></script>
+    <script src="../static/js/view/lib/jquery-1.8.3.min.js"></script>
+    <script src="../static/js/view/other/ajaxConfig.js"></script>
+</body>
+
+</html>

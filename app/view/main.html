@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>主界面</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../../static/css/animate.css">
+    <link rel="stylesheet" href="../../static/css/loaders.css">
+    <link rel="stylesheet" href="../../static/css/base.css">
+    <link rel="stylesheet" href="../../static/css/login.css">
+    <style>
+        .version {
+            font-size: 0.16rem;
+            position: fixed;
+            left: 20px;
+            bottom: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="opt_panel_box">
+        <div class="opt_panel">
+            <div class="minimizeBtn">
+                <img id="panel_1" src="../../static/images/opt2.png" /><span id="panel_1_span">最小化</span>
+            </div>
+            <div class="closeBtn">
+                <img id="panel_2" src="../../static/images/opt1.png" /><span id="panel_2_span">关闭</span>
+            </div>
+        </div>
+    </div>
+    <div class="header1" style="text-align:center;">
+        <!--金海湖新区精准扶贫大数据中心-->
+        <img src="../../static/images/login_title.png" />
+    </div>
+    <div id="clock"></div>
+    <section class="login-box vue-content">
+        <div class="box-top"></div>
+        <h2>欢迎使用，请登录</h2>
+        <p class="user-name"><input type="text" maxlength="11" placeholder="用户名" v-model="username"></p>
+        <p class="user-pwd"><input type="password" placeholder="密码" v-model="password"></p>
+        <p class="user-yan"><input @keyup.13="login" class="verify" type="text" placeholder="验证码" v-model="verify"><span><img @click="changeVerify" :src="verify_base64" id="verify_code"/></span></p>
+        <p class="user-login"><span @click="login">确定</span></p>
+    </section>
+
+    <!--左侧菜单栏-->
+    <div id="leftNav">
+        <div class="navscoll"></div>
+        <div class="navlook">
+            <ul id="nav_list">
+                <li class="from-index active" data-link="index.html">
+                    <div class="nav_imgbox">
+                        <div class="nav_imgboxs">
+                            <img src="../../static/images/nav/nav1.png" alt="" />
+                            <img src="../../static/images/nav/nav1-active.png" alt="" />
+                        </div>
+                    </div>
+                    <p>首页</p>
+                </li>
+                <li class="from-search" data-link="data-search.html">
+                    <div class="nav_imgbox">
+                        <div class="nav_imgboxs">
+                            <img src="../../static/images/nav/nav2.png" alt="" />
+                            <img src="../../static/images/nav/nav2-active.png" alt="" />
+                        </div>
+                    </div>
+                    <p>查询乡镇数据</p>
+                </li>
+                <li class="from-poor" data-link="poor.html">
+                    <div class="nav_imgbox">
+                        <div class="nav_imgboxs">
+                            <img src="../../static/images/nav/nav3.png" alt="" />
+                            <img src="../../static/images/nav/nav3-active.png" alt="" />
+                        </div>
+                    </div>
+                    <p>贫困户数据</p>
+                </li>
+                <li class="from-cadre" data-link="help-cadre.html">
+                    <div class="nav_imgbox">
+                        <div class="nav_imgboxs">
+                            <img src="../../static/images/nav/nav4.png" alt="" />
+                            <img src="../../static/images/nav/nav4-active.png" alt="" />
+                        </div>
+                    </div>
+                    <p>帮扶干部数据</p>
+                </li>
+                <li class="from-archives" data-link="archives.html">
+                    <div class="nav_imgbox">
+                        <div class="nav_imgboxs">
+                            <img src="../../static/images/nav/nav5.png" alt="" />
+                            <img src="../../static/images/nav/nav5-active.png" alt="" />
+                        </div>
+                    </div>
+                    <p>政策帮扶档案</p>
+                </li>
+                <li class="from-company" data-link="company-shopping.html">
+                    <div class="nav_imgbox">
+                        <div class="nav_imgboxs">
+                            <img src="../../static/images/nav/nav6.png" alt="" />
+                            <img src="../../static/images/nav/nav6-active.png" alt="" />
+                        </div>
+                    </div>
+                    <p>认购企业查询</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--下载提示框-->
+    <div class="wang-update">
+        <!--遮罩层-->
+        <div class="opacity"></div>
+        <!--内容-->
+        <div class="wang-update-content">
+            <!--更新说明-->
+            <div class="desc">
+            </div>
+            <!--更新进度-->
+            <div class="progress">
+                <p class="progress-status">状态:</p>
+                <progress value="22" max="100"></progress>
+                <p>
+                    <span>下载进度:<b class="downPro"></b>%</span>
+                    <span>下载速度:<b class="speed"></b>/s</span>
+                    <span>更新补丁大小:<b class="zipTotal"></b>MB</span>
+                </p>
+            </div>
+        </div>
+    </div>
+    <p class="version">当前版本号:<span></span></p>
+    <script src="../../static/js/view/lib/vue.js"></script>
+    <script src="../../static/js/view/lib/jquery-1.8.3.min.js"></script>
+    <script src="../../static/js/view/other/ajaxConfig.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+.poor-left>h2{
+	color: #43ffff;
+	font-size: 0.22rem;
+	padding: 0.8rem 0.1rem 0.3rem 0.1rem;
+	text-align: center;
+	font-weight: 100;
+	position: relative;
+	
+}
+.poor-left>h2:before{
+	position: absolute;
+	content: "";
+	left: 0.1rem;
+	right: 0.1rem;
+	bottom: 0;
+	background: #0b3d5d;
+	height: 1px;
+}
+.forget-h3{
+	margin: 0.4rem 0;
+	color:#43ffff;
+	font-size: 0.18rem;
+	font-weight: 100;
+	text-align: center;
+}
+.poor-left-plan{
+	font-size: 0.18rem;
+	color:#18B2FB;
+	margin-bottom: 0.2rem;
+	text-align: center;
+}
+.poor-left-plan>small{
+	font-size: 0.12rem;
+	color: #959595;
+}
+.poor-left-num{
+	font-size: 0.22rem;
+	color: #43ffff;
+	margin-bottom: 0.3rem;
+	text-align: center;
+}
+.poor-middle-intro{
+	margin-bottom: 0.6rem;
+}
+.poor-middle-table-box{
+	width: 100%;
+	height: 6.8rem;
+	padding:0 0.15rem;
+	padding-bottom: 0.1rem;
+	box-sizing: border-box;
+	overflow: hidden;
+	background: rgba(0,0,0,.15);
+	margin-bottom:0.1rem;
+}
+.poor-middle-table{
+	width: 100%;
+	margin-top: 0.2rem;
+	margin-bottom: 0.15rem;
+
+}
+.poor-middle-table>thead>tr,.poor-middle-table>tbody>tr{
+	height: 0.6rem !important;
+}
+.poor-middle-table>thead>tr>th{
+	color: #43FFFF;
+	font-size: 0.16rem;
+}
+.poor-middle-table>tbody>tr>td{
+	color:#18B2FB;
+	font-size: 0.18rem;
+	text-align: center;
+}
+
+.poor-middle-table>tbody>tr>td:nth-last-of-type(1){cursor: pointer;}
+
+.wang-poor-reset .wang-poor-thumbnail{clear:both;}
+.wang-poor-reset .wang-poor-thumbnail>div{float:left;}
+.wang-poor-reset .wang-poor-thumbnail .wang-thumbnail-img{width:1rem;height:1rem;}
+.wang-poor-reset .wang-poor-thumbnail .wang-thumbnail-img>img{display:block;width:100%;height:100%;}
+.wang-poor-reset .wang-poor-thumbnail .wang-thumbnail-text{width:2.8rem;padding-left:0.15rem;}
+.wang-poor-reset .wang-poor-thumbnail .wang-thumbnail-text p{line-height:normal;margin-bottom:0.05rem !important;}
+.wang-poor-reset .wang-poor-thumbnail .wang-thumbnail-text p:nth-of-type(1){margin-bottom:0.3rem !important;}
+.wang-poor-reset .wang-memberDetail{clear: both;}
+.wang-poor-reset .wang-memberDetail p{width:49%;float:left;margin-right:1%;overflow: hidden; text-overflow:ellipsis;  white-space: nowrap;}
+.wang-poor-reset .wang-memberDetail p.noFloat{width:100%;}
+.wang-poor-reset .wang-memberDetail table.wang-user-info{margin-bottom:0.15rem;}

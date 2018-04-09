@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta Author="hhy" />
+    <title>帮扶干部</title>
+    <link rel="stylesheet" type="text/css" href="../static/css/base.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/data-search.css" />
+    <link rel="stylesheet" type="text/css" href="../static/css/help-cadre.css" />
+    <link rel="stylesheet" href="../static/css/loaders.css">
+    <style>
+        .text2 {
+            color: #1697d4;
+        }
+        
+        .num3 {
+            color: #1ec5c5;
+        }
+        
+        li.wang-active-color p,
+        .help-scroll>li.wang-active-color p,
+        .help-scroll>li.wang-active-color span {
+            color: #43ffff !important;
+        }
+        
+        .hu-price>span:nth-of-type(1) {
+            display: inline !important;
+        }
+        .search-left-title>div>select{
+            position: absolute;
+            height: 0.35rem;
+            font-size: 0.2rem;
+            left: 0;
+            width: 35%;
+            color: #c9c9c9;
+            border-radius: 0.175rem;
+            border: 1px solid #0b3d5d;
+            background: transparent;
+            outline: none;
+        }
+        .search-left-title>div>select>option{
+            border: none;
+            outline: none;
+            color:#6d6d6d;
+            -webkit-appearance:none; /*去除系统默认的样式*/
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);   /* 点击去除高亮的颜色*/
+            background-color: #fff;
+        }
+        .search-left-title>div>input{
+            position: absolute;
+            display: inline-block;
+            left: 40%;
+            top: 0px;
+            width: 60%;
+            height: 100%;
+            padding-right: 0.4rem;
+            padding-left: 0.2rem;
+            font-size: 0.2rem;
+            color: #c9c9c9;
+            border-radius: 0.175rem;
+            border: 1px solid #0b3d5d;
+            background: transparent;
+            outline: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header"></div>
+    <div id="clock"></div>
+    <div id="container" class="flex vue-content">
+        <div class="grad1">
+            <div class="search-left">
+                <div class="search-left-title">
+                    <div>
+                        <!-- <input placeholder="请输入查询单位名称" v-model="key_word" class="seach-text" type="text"> -->
+                        <select class="seach-type" @change = "changeType">
+                            <option value =0>单位名称</option>
+                            <option value =1>帮扶干部</option>
+                          </select>
+                        <input placeholder="请输入" v-model="key_word" class="seach-text" type="text">
+                        <img @click="search" class="input_search" src="../static/images/search.png" />
+                    </div>
+                </div>
+                <p class="wang-tisp-search" v-if="!list.list.length">未查询到数据</p>
+                <ul class="left-address-list help-scroll">
+                    <li v-for="(item,index) in list.list" @click="showDetail($event,item._id)">
+                        <p class="country-title">{{item.full_name}}</p>
+                        <div class="help-info">
+                            <span class="text2">帮扶干部</span>
+                            <span class="num3">{{item.help_num}}人</span>
+                            <span class="text2">帮扶贫困户</span>
+                            <span class="num3">{{item.help_family}}户</span>
+                        </div>
+                        <div class="help-info">
+                            <span class="text2">走访次数</span>
+                            <span class="num3">{{item.visits}}次</span>
+                            <span class="text2">工作分享</span>
+                            <span class="num3">{{item.shares}}次</span>
+                        </div>
+                        <div class="help-info">
+                            <span class="text2">发布商品</span>
+                            <span class="num3">{{item.goods}}次</span>
+                            <span class="text2">发布务工</span>
+                            <span class="num3">{{item.works}}次</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="grad2">
+            <p class="help-title">帮扶干部数据 <img src="../static/images/help07.png" /></p>
+            <ul class="help-middle-list wang-active-boxs">
+                <p class="wang-tisp-search" v-if="!m_list.list || !m_list.list.length">未查询到数据</p>
+                <li v-for="(item,index) in m_list.list">
+                    <div class="help-intro">
+                        <img :src="src(item.avatar)" />
+                        <p>
+                            {{item.name || ''}}
+                            <img src="../static/images/help05.png" />
+                        </p>
+                        <p>{{item.gov_title || ''}}</p>
+                    </div>
+                    <div class="hover-list">
+                        <p @click="showRight($event,'f',item._id)">结对贫困户<span>{{item.families}}户</span></p>
+                        <p @click="showRight($event,'g',item._id)">商品发布<span>{{item.goods}}项</span></p>
+                        <p @click="showRight($event,'v',item._id)">走访次数<span>{{item.visits}}次</span></p>
+                        <p @click="showRight($event,'w',item._id)">发布务工<span>{{item.works}}项</span></p>
+                    </div>
+                </li>
+            </ul>
+            <p class="page-box" v-show="m_list.list.length"></p>
+        </div>
+        <div class="grad3">
+            <!--结对贫困户-->
+            <section class="page1 help-left box-right page">
+                <ul class="left-address-list" style="height: auto;">
+                    <p class="wang-tisp-search" v-if="!f.list || !f.list.length">未查询到数据</p>
+                    <li v-for="(item,index) in f.list">
+                        <span class="down-img" @click="downUp($event)"><img src="../static/images/down.png"></span>
+                        <span class="up-img" @click="downUp($event)"><img src="../static/images/up.png"></span>
+                        <div class="LI-usertext">
+                            <img :src="src(item.avatar)">
+                            <div class="LI-usertext-info">
+                                <p>{{item.name}}</p>
+                                <p>{{GetPro(item.property)}}</p>
+                                <p>{{item.address}}</p>
+                            </div>
+                        </div>
+                        <ul class="left-children LI-userinfo">
+                            <div class="LI-userinfo-1">
+                                <p>
+                                    <span>家庭人数:<span>{{item.members_counts}}</span></span>
+                                    <span>联系电话:<span>{{item.phone | R(4,4)}}</span></span>
+                                </p>
+                                <p>
+                                    <span>贫困户属性:<span>{{GetPro(item.property)}}</span></span>
+                                    <span>识别标准:<span>{{GetSta(item.standard)}}</span></span>
+                                </p>
+                                <p>
+                                    <!--<span>主要致贫原因:<span>{{GetCau(item.causes)}}</span></span>-->
+                                    <span>银行卡号:<span>{{item.bank_card | R(4,4)}}</span>&nbsp;&nbsp;</span>
+                                    <span>是否军烈:<span>{{item.martyr_sib?'是':'否'}}</span></span>
+                                </p>
+                                <p>
+                                    <span>开户银行:<span>{{item.bank_name?item.bank_name:'无'}}</span></span>
+                                </p>
+
+                                <p>
+                                    <span>主要致贫原因:<span>{{GetCau(item.causes)}}</span></span>
+                                </p>
+                            </div>
+                            <div class="LI-userinfo-2">
+                                <p style="color: #fff;font-size: 0.18rem;line-height: 0.4rem;margin-top: 0.1rem;">家庭成员</p>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <th>姓名</th>
+                                            <th>性别</th>
+                                            <th>证件号码</th>
+                                            <th>与户主关系</th>
+                                        </tr>
+
+                                        <tr v-for="(_item,_index) in item.members">
+                                            <td>{{_item.name | R(1,0,2)}}</td>
+                                            <td>{{GetSex(_item.sex)}}</td>
+                                            <td>{{_item.id_crad | R(6,4)}}</td>
+                                            <td>{{GetRel(_item.relation)}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ul>
+                        </l>
+                </ul>
+            </section>
+            <!--商品发布-->
+            <section class="left-address-list page2 help-left box-right padding-right">
+                <p class="wang-tisp-search" v-if="!g.list || !g.list.length">未查询到数据</p>
+                <div class="wang-goods-item" v-for="(item,index) in g.list">
+                    <div class="wang-goods-thumbnail wang-clearfix">
+                        <div class="wang-goods-thumbnail-imgBox">
+                            <img :src="src(item.cover)">
+                        </div>
+                        <div class="wang-goods-thumbnail-text">
+                            <h3 class="wang-goods-title">{{item.name}}</h3>
+                            <p class="hu-price">
+                                ￥<span style="display:inline;">{{item.price}}</span>/{{item.unit}}
+                                <span @click="downUp($event,1)" style="float: right; margin-right: 20px;">
+                                    <img class="showDetailBtns" src="../static/images/down.png">
+                                </span>
+                                <span @click="downUp($event,1)" style="float: right; margin-right: 20px;display:none">
+                                    <img class="showDetailBtns" src="../static/images/up.png">
+                                </span>
+                            </p>
+                            <p class="text2 wang-text-ellipsis">
+                                <abbr>贫困户: <span>{{item.family.name}}</span></abbr>
+                                <abbr>帮扶干部：<span>{{item.family.help_name}}</span></abbr>
+                            </p>
+                            <p class="text2 wang-text-ellipsis">
+                                <abbr>库存: <span>{{item.goods.amount}}</span></abbr> <abbr>销量：<span>{{item.goods.sales}}</span></abbr>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="wang-goods-detail">
+                        <figure v-for="(_item,index) in item.goods.images">
+                            <img :src="src(_item.url)">
+                        </figure>
+                        <section class="hu-shop-right-info padding-15">
+                            <h2 class="wang-goods-title">{{item.name}}</h2>
+                            <p class="hu-info-pirce"><small>￥</small><span>{{item.price}}</span>/{{item.unit}}</p>
+                            <p class="hu-info-cost">
+                                <span>剩余库存：<abbr>{{item.goods.amount}}</abbr>{{item.unit}}</span>
+                                <span>已出售：<abbr>{{item.goods.sales}}</abbr>{{item.unit}}</span>
+                                <span>运费：<abbr>{{item.goods.express_type}}</abbr></span>
+                            </p>
+                            <p class="hu-info-time">
+                                提货时间：
+                                <time>
+                                    {{GetDel(item.goods.delivery)}}
+                                </time>
+                            </p>
+                            <p class="right-user">
+                                <a href="javascript:;"><img :src="src(item.family.avatar)"></a>
+                                贫困户主：<span>{{item.family.name}}</span>帮扶干部：<abbr>{{item.family.help_name}}</abbr>
+                            </p>
+                            <p class="person-count">
+                                家庭人数：
+                                <span>{{item.family.members}}</span> 贫困户类型：
+                                <abbr>{{GetPro(item.family.property)}}</abbr>
+                            </p>
+                            <p class="right-reason" style="margin-bottom:0;">
+                                2017年人均收入：
+                                <abbr>{{item.family.avg_income}}</abbr>
+                            </p>
+                            <p class="right-reason" style="margin-bottom:0;">主要至贫原因：<span>{{GetCau(item.family.causes)}}</span></p>
+                        </section>
+                    </div>
+                </div>
+            </section>
+            <!--走访次数-->
+            <section class="left-address-list page3 help-left box-right">
+                <p class="wang-tisp-search" v-if="!v.list || !v.list.length">未查询到数据</p>
+                <article class="intro-list" v-for="(item,index) in v.list">
+                    <h2 class="help-time" v-if="item.timed">{{new Date(item.timed * 1000).toLocaleDateString()}}</h2>
+                    <p class="right-info">走访<span>{{item.family}}</span>家</p>
+                    <p class="right-address" style="padding-bottom: 0; padding-left: 0;">
+                        <img src="../static/images/help03.png"> {{item.address}}
+                    </p>
+                    <p class="right-content">走访记录：{{item.content}}</p>
+                    <p class="right-content">帮扶计划：{{item.plan}}</p>
+                    <p class="right-content">落实情况：{{item.info}}</p>
+                    <ul class="right-img">
+                        <li v-for="(_item,_index) in item.img">
+                            <img :src="src(_item.url)">
+                        </li>
+                    </ul>
+                </article>
+            </section>
+            <!--发布务工-->
+            <section class="left-address-list page4 box-right" style="padding-left: 0;width: 4.4rem;">
+                <p class="wang-tisp-search" v-if="!w.list.length">未查询到数据</p>
+                <div class="wang-goods-item" v-for="(item,index) in w.list" style="width: 4.4rem;">
+                    <div class="wang-goods-thumbnail wang-clearfix">
+                        <div class="wang-goods-thumbnail-imgBox">
+                            <img :src="src(item.photo)">
+                        </div>
+                        <div class="wang-goods-thumbnail-text">
+                            <h3 class="wang-goods-title">{{item.title}}</h3>
+                            <p class="text2 wang-text-ellipsis">
+                                <abbr>务工人: <span>{{item.worker}}</span></abbr>
+                                <abbr>帮扶干部：<span>{{item.cadre}}</span></abbr>
+                            </p>
+
+                            <p class="hu-info-time child-img">发布时间：
+                                <time>{{new Date(item.timed * 1000).toLocaleDateString()}}</time>
+                                <span @click="downUp($event,1)" style="float: right; margin-right: 20px;"><img class="showDetailBtns" src="../static/images/down.png"></span>
+                                <span @click="downUp($event,1)" style="float: right; margin-right: 20px;display:none;"><img class="showDetailBtns" src="../static/images/up.png"></span>
+                            </p>
+                            <p class="hu-deal">
+                                <span v-for="(_item,_index) in item.tags" class="deal-color">{{GetTags(_item)}}</span>
+                                <!-- <span class="deal-color">包吃</span>
+                                <span class="deal-color">包住</span>
+                                <span class="deal-color">五险</span>
+                                <span class="deal-color">一金</span> -->
+                            </p>
+                        </div>
+                    </div>
+                    <div class="wang-goods-detail">
+                        <figure v-for="(_item,_index) in item.images">
+                            <img :src="src(_item.url)">
+                        </figure>
+                        <section class="hu-shop-right-info padding-15">
+                            <h2 class="wang-goods-title">{{item.title}}</h2>
+                            <p class="hu-info-pirce">期望工资：￥<span>{{item.salary}}}</span>/月</p>
+                            <p class="hu-info-cost">
+                                <span>务工人：<abbr>{{item.worker}}</abbr></span>
+                                <span>性别：<abbr>{{GetSex(item.sex)}}</abbr></span>
+                                <span>年龄：<abbr>{{item.age}}</abbr></span>
+                            </p>
+                            <p class="hu-info-time">
+                                文化程度：<time>{{GetEdu(item.edu)}}</time>
+                            </p>
+                            <p class="right-user">
+                                <a href="javascript:;">
+                                    <img :src="src(item.photo)">
+                                </a>
+                                贫困户主：<span>{{item.worker}}</span>帮扶干部：<abbr>{{item.cadre}}</abbr>
+                            </p>
+                            <p class="person-count">
+                                家庭人数：<span>{{item.members}}</span> 贫困户指数：
+                                <abbr>{{GetPro(item.property)}}</abbr>
+                            </p>
+                            <p class="right-reason" style="margin-bottom: 0;">
+                                2017年人均收入：<abbr>{{item.avg_income}}</abbr>
+                            </p>
+                            <p class="right-address " style="padding-left: 0;padding-bottom:0; border-bottom: 0;margin-bottom:0;">
+                                家庭地址：<span>{{item.address}}</span>
+                            </p>
+                            <p class="right-reason" style="margin-bottom: 0;">
+                                主要至贫原因：<span>{{GetCau(item.causes)}}</span>
+                            </p>
+                        </section>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="../static/js/view/lib/vue.js"></script>
+    <script src="../static/js/view/lib/jquery-1.8.3.min.js"></script>
+    <script src="../static/js/view/other/ajaxConfig.js"></script>
+</body>
+
+</html>
