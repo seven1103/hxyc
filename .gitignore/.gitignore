@@ -1,2 +1,3 @@
 # 忽略组件包
 app/node_modules/*
+app/package.json
